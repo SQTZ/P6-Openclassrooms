@@ -19,10 +19,7 @@ form.addEventListener('submit', function(event) {
   })
   .then(response => {
     if (!response.ok) {
-<<<<<<< HEAD
       document.getElementById('erreur').innerHTML = "E-mail ou mot de passe invalides !";
-=======
->>>>>>> 4b000422fe78bf539ce1d99a069660f1a07ec7b8
       throw new Error('Identifiants invalides');
     }
     return response.json();

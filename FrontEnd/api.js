@@ -53,12 +53,13 @@ function get_works() {
             //On définit la gallerie
             const gallery = document.getElementById('galleryworks');
             gallery.appendChild(fragment);
+
         })
 }
 
 
 //Fonction pour récupérer une catégorie
-function get_category(){
+function get_category() {
     const settings = {
         //On choisi la méthode
         method: 'GET',
@@ -81,29 +82,68 @@ function get_category(){
     const url_category = 'http://localhost:5678/api/categories';
 
     fetch(url_category)
-    //On applique une promesse qui vérifie si il à trouvé quelque chose 
-    .then((res) => {
-        return res.json();
-    })
+        //On applique une promesse qui vérifie si il à trouvé quelque chose 
+        .then((res) => {
+            return res.json();
+        })
 
-    //On met en place une autre promesse qui lui va récupérer les données inscrites
-    .then((data) => {
-        const fragment = document.createDocumentFragment();
-        let categories = data;
-        categories.forEach((category) => {
-            console.log(category);
-            const link = document.createElement('a');
-            link.textContent = category.name;
-            link.classList.add("subcat");
-            fragment.appendChild(link);
+        //On met en place une autre promesse qui va afficher les catégories disponibles
+        .then((data) => {
+            const fragment = document.createDocumentFragment();
+            let categories = data;
+            categories.forEach((category) => {
+                console.log(category);
+                const link = document.createElement('button');
+                link.textContent = category.name;
+                link.classList.add("subcat");
+                fragment.appendChild(link);
+            });
+            
+            //On affiche les catégories disponibles
+            const categorie = document.getElementById('category');
+            categorie.appendChild(fragment);
+
+
+            
+
+            //FIXME: Voir avec WESLEY pour afficher les images en fonction de la catégorie demandé !!!
+            //On met en place le système du filtrage
+            let tousLesBoutons = document.querySelectorAll(".subcat");
+            for (let i = 0; i < tousLesBoutons.length; i++) { 
+            let bouton = tousLesBoutons[i];
+            //On crée l'évenement qui active/désactive le bouton lorsqu'on clique
+            bouton.addEventListener("click", function(e) {
+            e.target.classList.toggle("default");
+            });
+        }
+
+
     });
-    const categorie = document.getElementById('category');
-      categorie.appendChild(fragment);
-})
-}
+
+
+};
+
 
 
 //Fonction pour ajouter un work
+function add_work() {
+    //TODO: créer un formulaire pour l'ajout d'un projet
+}
+
+//Fonction pour supprimer un work
+function remove_work() {
+
+}
+
+
+
+
+
+//TODO: créer un système de catégorie
+//TODO: Faire afficher le mode édition
+//TODO: A un modal pour gérer les projets
 
 get_works();
 get_category();
+//add_work();
+//remove_work();
